@@ -9,14 +9,12 @@ public class Intersection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type; 
-
-    private String trafficLight; 
-
-    private double coordinatesX; 
-    private double coordinatesY; 
-
-    private int maxVehicles; 
+    private String name; 
+    private String type;
+    private String trafficLight;
+    private double coordinatesX;
+    private double coordinatesY;
+    private int maxVehicles;
 
     @ManyToOne
     @JoinColumn(name = "street_id")
@@ -32,6 +30,14 @@ public class Intersection {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() { 
+        return name;
+    }
+
+    public void setName(String name) { 
+        this.name = name;
     }
 
     public String getType() {
