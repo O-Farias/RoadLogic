@@ -8,21 +8,21 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type; 
-
-    private double speed; 
-
-    private double maxSpeed; 
-
-    private double position; 
-
-    private String direction; 
-
-    private boolean isEmergency; 
+    private String name; 
+    private String type;
+    private double speed;
+    private double maxSpeed;
+    private double position;
+    private String direction;
+    private boolean emergency; 
 
     @ManyToOne
     @JoinColumn(name = "street_id")
     private Street street;
+
+    @ManyToOne
+    @JoinColumn(name = "intersection_id")
+    private Intersection intersection; 
 
     // Getters e Setters
     public Long getId() {
@@ -31,6 +31,14 @@ public class Vehicle {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() { 
+        return name;
+    }
+
+    public void setName(String name) { 
+        this.name = name;
     }
 
     public String getType() {
@@ -73,12 +81,12 @@ public class Vehicle {
         this.direction = direction;
     }
 
-    public boolean isEmergency() {
-        return isEmergency;
+    public boolean isEmergency() { 
+        return emergency;
     }
 
-    public void setEmergency(boolean emergency) {
-        isEmergency = emergency;
+    public void setEmergency(boolean emergency) { 
+        this.emergency = emergency;
     }
 
     public Street getStreet() {
@@ -87,5 +95,13 @@ public class Vehicle {
 
     public void setStreet(Street street) {
         this.street = street;
+    }
+
+    public Intersection getIntersection() { 
+        return intersection;
+    }
+
+    public void setIntersection(Intersection intersection) { 
+        this.intersection = intersection;
     }
 }
