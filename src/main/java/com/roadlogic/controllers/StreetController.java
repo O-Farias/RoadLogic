@@ -1,52 +1,36 @@
 package com.roadlogic.controllers;
 
 import com.roadlogic.models.Street;
-import com.roadlogic.repositories.StreetRepository;
+import com.roadlogic.services.StreetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/streets")
 public class StreetController {
 
     @Autowired
-    private StreetRepository streetRepository;
+    private StreetService streetService;
 
     @PostMapping
     public Street addStreet(@RequestBody Street street) {
-        return streetRepository.save(street);
+        return streetService.saveStreet(street);
     }
 
     @GetMapping
     public List<Street> getAllStreets() {
-        return streetRepository.findAll();
+        return streetService.getAllStreets();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Street> updateStreet(@PathVariable Long id, @RequestBody Street updatedStreet) {
-        Optional<Street> optionalStreet = streetRepository.findById(id);
-        if (optionalStreet.isPresent()) {
-            Street street = optionalStreet.get();
-            street.setName(updatedStreet.getName());
-            street.setLength(updatedStreet.getLength());
-            streetRepository.save(street);
-            return ResponseEntity.ok(street);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Street updateStreet(@PathVariable Long id, @RequestBody Street street) {
+        return streetService.updateStreet(id, street);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteStreet(@PathVariable Long id) {
-        if (streetRepository.existsById(id)) {
-            streetRepository.deleteById(id);
-            return ResponseEntity.ok("Street deleted successfully.");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void deleteStreet(@PathVariable Long id) {
+        streetService.deleteStreet(id);
     }
 }
