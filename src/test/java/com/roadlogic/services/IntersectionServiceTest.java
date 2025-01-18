@@ -39,8 +39,8 @@ class IntersectionServiceTest {
         verify(intersectionRepository, times(1)).findAll();
     }
 
-    @Test
-    void testAddIntersection() {
+@Test
+void testAddIntersection() {
         Intersection newIntersection = new Intersection(null, "Rotatória", "Amarelo", "Vermelho", 2.0, 2.0, 5);
         when(intersectionRepository.save(newIntersection)).thenReturn(new Intersection(1L, "Rotatória", "Amarelo", "Vermelho", 2.0, 2.0, 5));
 
@@ -50,6 +50,7 @@ class IntersectionServiceTest {
         assertEquals("Rotatória", savedIntersection.getName());
         verify(intersectionRepository, times(1)).save(newIntersection);
     }
+
 
     @Test
     void testGetIntersectionById() {
