@@ -36,7 +36,8 @@ class StreetControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockStreet = new Street(1L, "Rua Principal", 500, null, null);
+        MockitoAnnotations.openMocks(this);
+        mockStreet = new Street(1L, "Rua Principal", 500, "Asfalto", 60);
     }
 
     @Test
@@ -53,7 +54,7 @@ class StreetControllerTest {
 
     @Test
     void testAddStreet() throws Exception {
-        when(streetService.addStreet(any(Street.class))).thenReturn(mockStreet);
+        when(streetService.saveStreet(any(Street.class))).thenReturn(mockStreet);
 
         mockMvc.perform(post("/streets")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -62,7 +63,7 @@ class StreetControllerTest {
                 .andExpect(jsonPath("$.id").value(mockStreet.getId()))
                 .andExpect(jsonPath("$.name").value(mockStreet.getName()));
 
-        verify(streetService, times(1)).addStreet(any(Street.class));
+        verify(streetService, times(1)).saveStreet(any(Street.class));
     }
 
     @Test
