@@ -11,11 +11,11 @@ public class Street {
 
     private String name;
     private double length;
-    private String type; 
-    private int maxSpeed; 
-    private String condition; 
-    private String trafficFlow; 
-    private boolean isOneWay; 
+    private String type;
+    private int maxSpeed;
+    private String condition;
+    private String trafficFlow;
+    private boolean isOneWay;
 
     @OneToMany(mappedBy = "street", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Intersection> intersections;
@@ -24,7 +24,8 @@ public class Street {
     private List<Vehicle> vehicles;
 
     // Construtor sem argumentos
-    public Street() {}
+    public Street() {
+    }
 
     // Construtor com argumentos
     public Street(Long id, String name, double length, String type, int maxSpeed, String condition,
@@ -40,6 +41,17 @@ public class Street {
         this.intersections = intersections;
         this.vehicles = vehicles;
     }
+
+
+    // Construtor simplificado para testes
+    public Street(Long id, String name, double length, String type, int maxSpeed) {
+    this.id = id;
+    this.name = name;
+    this.length = length;
+    this.type = type;
+    this.maxSpeed = maxSpeed;
+    }
+
 
     // Getters e Setters
     public Long getId() {
@@ -104,5 +116,21 @@ public class Street {
 
     public void setOneWay(boolean oneWay) {
         isOneWay = oneWay;
+    }
+
+    public List<Intersection> getIntersections() {
+        return intersections;
+    }
+
+    public void setIntersections(List<Intersection> intersections) {
+        this.intersections = intersections;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }
