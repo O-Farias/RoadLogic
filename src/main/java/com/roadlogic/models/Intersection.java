@@ -9,7 +9,7 @@ public class Intersection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; 
+    private String name;
     private String type;
     private String trafficLight;
     private double coordinatesX;
@@ -24,7 +24,8 @@ public class Intersection {
     private List<Vehicle> vehicles;
 
     // Construtor sem argumentos
-    public Intersection() {}
+    public Intersection() {
+    }
 
     // Construtor com argumentos
     public Intersection(Long id, String name, String type, String trafficLight, double coordinatesX,
@@ -40,6 +41,18 @@ public class Intersection {
         this.vehicles = vehicles;
     }
 
+    // Construtor simplificado para testes
+    public Intersection(Long id, String name, String type, String trafficLight, double coordinatesX, double coordinatesY, int maxVehicles) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.trafficLight = trafficLight;
+    this.coordinatesX = coordinatesX;
+    this.coordinatesY = coordinatesY;
+    this.maxVehicles = maxVehicles;
+    }
+
+
     // Getters e Setters
     public Long getId() {
         return id;
@@ -49,11 +62,11 @@ public class Intersection {
         this.id = id;
     }
 
-    public String getName() { 
+    public String getName() {
         return name;
     }
 
-    public void setName(String name) { 
+    public void setName(String name) {
         this.name = name;
     }
 
