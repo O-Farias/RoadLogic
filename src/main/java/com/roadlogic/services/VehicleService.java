@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class VehicleService {
@@ -30,19 +32,23 @@ public class VehicleService {
         return vehicleRepository.findById(id);
     }
 
-    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
-        return vehicleRepository.findById(id)
-                .map(existingVehicle -> {
-                    existingVehicle.setType(vehicle.getType());
-                    existingVehicle.setSpeed(vehicle.getSpeed());
-                    existingVehicle.setMaxSpeed(vehicle.getMaxSpeed());
-                    existingVehicle.setPosition(vehicle.getPosition());
-                    existingVehicle.setDirection(vehicle.getDirection());
-                    existingVehicle.setEmergency(vehicle.isEmergency());
-                    return vehicleRepository.save(existingVehicle);
-                })
-                .orElseThrow(() -> new RuntimeException("Vehicle not found with id " + id));
+    public Vehicle updateVehicle(Long id, Vehicle updatedVehicle) {
+    Optional<Vehicle> existingVehicleOpt = vehicleRepository.findById(id);
+    if (existingVehicleOpt.isPresent()) {
+        Vehicle existingVehicle = existingVehicleOpt.get();
+        // Atualiza os campos
+        existingVehicle.setName(updatedVehicle.getName());
+        existingVehicle.setType(updatedVehicle.getType());
+        existingVehicle.setSpeed(updatedVehicle.getSpeed());
+        existingVehicle.setMaxSpeed(updatedVehicle.getMaxSpeed());
+        existingVehicle.setEmergency(updatedVehicle.isEmergency());
+        // Salva as mudanças
+        return vehicleRepository.save(existingVehicle);
+    } else {
+        throw new EntityNotFoundException("Vehicle not found");
     }
+}
+
 
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
