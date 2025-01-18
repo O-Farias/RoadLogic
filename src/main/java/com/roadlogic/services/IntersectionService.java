@@ -18,7 +18,11 @@ public class IntersectionService {
         return intersectionRepository.findAll();
     }
 
-    public Intersection saveIntersection(Intersection intersection) { 
+    public Intersection addIntersection(Intersection intersection) { 
+        return intersectionRepository.save(intersection);
+    }
+
+    public Intersection saveIntersection(Intersection intersection) {
         return intersectionRepository.save(intersection);
     }
 
