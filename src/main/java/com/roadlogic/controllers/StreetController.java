@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/streets")
 public class StreetController {
@@ -22,6 +21,12 @@ public class StreetController {
     @GetMapping
     public List<Street> getAllStreets() {
         return streetService.getAllStreets();
+    }
+
+    @GetMapping("/{id}")
+    public Street getStreetById(@PathVariable Long id) {
+        return streetService.getStreetById(id)
+                .orElseThrow(() -> new RuntimeException("Street not found with id " + id));
     }
 
     @PutMapping("/{id}")
