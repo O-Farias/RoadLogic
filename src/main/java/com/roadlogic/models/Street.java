@@ -10,17 +10,11 @@ public class Street {
     private Long id;
 
     private String name;
-
     private double length;
-
     private String type; 
-
     private int maxSpeed; 
-
     private String condition; 
-
     private String trafficFlow; 
-
     private boolean isOneWay; 
 
     @OneToMany(mappedBy = "street", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,6 +22,24 @@ public class Street {
 
     @OneToMany(mappedBy = "street", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles;
+
+    // Construtor sem argumentos
+    public Street() {}
+
+    // Construtor com argumentos
+    public Street(Long id, String name, double length, String type, int maxSpeed, String condition,
+                  String trafficFlow, boolean isOneWay, List<Intersection> intersections, List<Vehicle> vehicles) {
+        this.id = id;
+        this.name = name;
+        this.length = length;
+        this.type = type;
+        this.maxSpeed = maxSpeed;
+        this.condition = condition;
+        this.trafficFlow = trafficFlow;
+        this.isOneWay = isOneWay;
+        this.intersections = intersections;
+        this.vehicles = vehicles;
+    }
 
     // Getters e Setters
     public Long getId() {
