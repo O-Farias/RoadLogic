@@ -18,7 +18,11 @@ public class StreetService {
         return streetRepository.findAll();
     }
 
-    public Street saveStreet(Street street) { 
+    public Street addStreet(Street street) { 
+        return streetRepository.save(street);
+    }
+
+    public Street saveStreet(Street street) {
         return streetRepository.save(street);
     }
 
