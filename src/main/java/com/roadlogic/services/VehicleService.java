@@ -18,7 +18,11 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
-    public Vehicle saveVehicle(Vehicle vehicle) { 
+    public Vehicle addVehicle(Vehicle vehicle) { 
+        return vehicleRepository.save(vehicle);
+    }
+
+    public Vehicle saveVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
