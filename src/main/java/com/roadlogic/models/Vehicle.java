@@ -8,13 +8,13 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; 
+    private String name;
     private String type;
     private double speed;
     private double maxSpeed;
     private double position;
     private String direction;
-    private boolean emergency; 
+    private boolean emergency;
 
     @ManyToOne
     @JoinColumn(name = "street_id")
@@ -22,10 +22,11 @@ public class Vehicle {
 
     @ManyToOne
     @JoinColumn(name = "intersection_id")
-    private Intersection intersection; 
+    private Intersection intersection;
 
     // Construtor sem argumentos
-    public Vehicle() {}
+    public Vehicle() {
+    }
 
     // Construtor com argumentos
     public Vehicle(Long id, String name, String type, double speed, double maxSpeed, double position,
@@ -42,6 +43,17 @@ public class Vehicle {
         this.intersection = intersection;
     }
 
+    // Construtor simplificado para testes
+    public Vehicle(Long id, String name, String type, double speed, double maxSpeed, boolean emergency) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.speed = speed;
+    this.maxSpeed = maxSpeed;
+    this.emergency = emergency;
+    }
+
+
     // Getters e Setters
     public Long getId() {
         return id;
@@ -51,11 +63,11 @@ public class Vehicle {
         this.id = id;
     }
 
-    public String getName() { 
+    public String getName() {
         return name;
     }
 
-    public void setName(String name) { 
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -99,11 +111,11 @@ public class Vehicle {
         this.direction = direction;
     }
 
-    public boolean isEmergency() { 
+    public boolean isEmergency() {
         return emergency;
     }
 
-    public void setEmergency(boolean emergency) { 
+    public void setEmergency(boolean emergency) {
         this.emergency = emergency;
     }
 
@@ -115,11 +127,11 @@ public class Vehicle {
         this.street = street;
     }
 
-    public Intersection getIntersection() { 
+    public Intersection getIntersection() {
         return intersection;
     }
 
-    public void setIntersection(Intersection intersection) { 
+    public void setIntersection(Intersection intersection) {
         this.intersection = intersection;
     }
 }
