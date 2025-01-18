@@ -24,6 +24,24 @@ public class Vehicle {
     @JoinColumn(name = "intersection_id")
     private Intersection intersection; 
 
+    // Construtor sem argumentos
+    public Vehicle() {}
+
+    // Construtor com argumentos
+    public Vehicle(Long id, String name, String type, double speed, double maxSpeed, double position,
+                   String direction, boolean emergency, Street street, Intersection intersection) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.speed = speed;
+        this.maxSpeed = maxSpeed;
+        this.position = position;
+        this.direction = direction;
+        this.emergency = emergency;
+        this.street = street;
+        this.intersection = intersection;
+    }
+
     // Getters e Setters
     public Long getId() {
         return id;
