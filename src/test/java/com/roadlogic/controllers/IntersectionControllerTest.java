@@ -36,7 +36,7 @@ class IntersectionControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockIntersection = new Intersection(1L, "Cruzamento", "Verde", 1.0, 1.0, 10, null, null);
+        mockIntersection = new Intersection(1L, "Cruzamento", "Intersection Type", "Verde", 1.0, 1.0, 10, null, null);
     }
 
     @Test
@@ -46,23 +46,23 @@ class IntersectionControllerTest {
         mockMvc.perform(get("/intersections"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(mockIntersection.getId()))
-                .andExpect(jsonPath("$[0].type").value(mockIntersection.getType()));
+                .andExpect(jsonPath("$[0].name").value(mockIntersection.getName()));
 
         verify(intersectionService, times(1)).getAllIntersections();
     }
 
     @Test
     void testAddIntersection() throws Exception {
-        when(intersectionService.addIntersection(any(Intersection.class))).thenReturn(mockIntersection);
+        when(intersectionService.saveIntersection(any(Intersection.class))).thenReturn(mockIntersection);
 
         mockMvc.perform(post("/intersections")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(mockIntersection)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(mockIntersection.getId()))
-                .andExpect(jsonPath("$.type").value(mockIntersection.getType()));
+                .andExpect(jsonPath("$.name").value(mockIntersection.getName()));
 
-        verify(intersectionService, times(1)).addIntersection(any(Intersection.class));
+        verify(intersectionService, times(1)).saveIntersection(any(Intersection.class));
     }
 
     @Test
@@ -72,7 +72,7 @@ class IntersectionControllerTest {
         mockMvc.perform(get("/intersections/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(mockIntersection.getId()))
-                .andExpect(jsonPath("$.type").value(mockIntersection.getType()));
+                .andExpect(jsonPath("$.name").value(mockIntersection.getName()));
 
         verify(intersectionService, times(1)).getIntersectionById(1L);
     }
@@ -86,7 +86,7 @@ class IntersectionControllerTest {
                 .content(objectMapper.writeValueAsString(mockIntersection)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(mockIntersection.getId()))
-                .andExpect(jsonPath("$.type").value(mockIntersection.getType()));
+                .andExpect(jsonPath("$.name").value(mockIntersection.getName()));
 
         verify(intersectionService, times(1)).updateIntersection(eq(1L), any(Intersection.class));
     }
