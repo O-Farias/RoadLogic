@@ -4,6 +4,8 @@ import com.roadlogic.models.Vehicle;
 import com.roadlogic.services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
 
 import java.util.List;
 @RestController
@@ -14,9 +16,11 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @PostMapping
-    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.saveVehicle(vehicle);
+    public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle) {
+        Vehicle savedVehicle = vehicleService.addVehicle(vehicle); 
+        return ResponseEntity.ok(savedVehicle); 
     }
+
 
     @GetMapping
     public List<Vehicle> getAllVehicles() {
