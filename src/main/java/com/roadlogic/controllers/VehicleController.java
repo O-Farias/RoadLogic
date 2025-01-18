@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
@@ -22,6 +21,12 @@ public class VehicleController {
     @GetMapping
     public List<Vehicle> getAllVehicles() {
         return vehicleService.getAllVehicles();
+    }
+
+    @GetMapping("/{id}")
+    public Vehicle getVehicleById(@PathVariable Long id) {
+        return vehicleService.getVehicleById(id)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with id " + id));
     }
 
     @PutMapping("/{id}")
