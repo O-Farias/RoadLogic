@@ -51,19 +51,24 @@ class VehicleControllerTest {
         verify(vehicleService, times(1)).getAllVehicles();
     }
 
-    @Test
+   @Test
     void testAddVehicle() throws Exception {
-        when(vehicleService.addVehicle(any(Vehicle.class))).thenReturn(mockVehicle);
+    // Configura o mock para retornar um veículo com ID definido
+        Vehicle mockResponseVehicle = new Vehicle(1L, "Carro 1", "Car", 60.0, 120.0, 0.0, "Norte", false, null, null);
+        when(vehicleService.addVehicle(any(Vehicle.class))).thenReturn(mockResponseVehicle);
 
+        // Envia um veículo e espera o retorno com o ID no JSON
         mockMvc.perform(post("/vehicles")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(mockVehicle)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(mockVehicle.getId()))
-                .andExpect(jsonPath("$.name").value(mockVehicle.getName()));
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(mockVehicle)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(mockResponseVehicle.getId())) 
+            .andExpect(jsonPath("$.name").value(mockResponseVehicle.getName())); 
 
         verify(vehicleService, times(1)).addVehicle(any(Vehicle.class));
     }
+
+
 
     @Test
     void testGetVehicleById() throws Exception {
