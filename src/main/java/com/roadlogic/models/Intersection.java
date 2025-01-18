@@ -23,6 +23,23 @@ public class Intersection {
     @OneToMany(mappedBy = "intersection", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles;
 
+    // Construtor sem argumentos
+    public Intersection() {}
+
+    // Construtor com argumentos
+    public Intersection(Long id, String name, String type, String trafficLight, double coordinatesX,
+                        double coordinatesY, int maxVehicles, Street street, List<Vehicle> vehicles) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.trafficLight = trafficLight;
+        this.coordinatesX = coordinatesX;
+        this.coordinatesY = coordinatesY;
+        this.maxVehicles = maxVehicles;
+        this.street = street;
+        this.vehicles = vehicles;
+    }
+
     // Getters e Setters
     public Long getId() {
         return id;
