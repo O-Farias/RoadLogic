@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
+
 
 @Service
 public class IntersectionService {
@@ -30,18 +32,23 @@ public class IntersectionService {
         return intersectionRepository.findById(id);
     }
 
-    public Intersection updateIntersection(Long id, Intersection intersection) {
-        return intersectionRepository.findById(id)
-                .map(existingIntersection -> {
-                    existingIntersection.setType(intersection.getType());
-                    existingIntersection.setTrafficLight(intersection.getTrafficLight());
-                    existingIntersection.setCoordinatesX(intersection.getCoordinatesX());
-                    existingIntersection.setCoordinatesY(intersection.getCoordinatesY());
-                    existingIntersection.setMaxVehicles(intersection.getMaxVehicles());
-                    return intersectionRepository.save(existingIntersection);
-                })
-                .orElseThrow(() -> new RuntimeException("Intersection not found with id " + id));
+    public Intersection updateIntersection(Long id, Intersection updatedIntersection) {
+    Optional<Intersection> existingIntersectionOpt = intersectionRepository.findById(id);
+    if (existingIntersectionOpt.isPresent()) {
+        Intersection existingIntersection = existingIntersectionOpt.get();
+        // Atualiza os campos
+        existingIntersection.setName(updatedIntersection.getName());
+        existingIntersection.setType(updatedIntersection.getType());
+        existingIntersection.setLatitude(updatedIntersection.getLatitude());
+        existingIntersection.setLongitude(updatedIntersection.getLongitude());
+        existingIntersection.setTrafficFlow(updatedIntersection.getTrafficFlow());
+        // Salva as mudanças
+        return intersectionRepository.save(existingIntersection);
+    } else {
+        throw new EntityNotFoundException("Intersection not found");
     }
+}
+
 
     public void deleteIntersection(Long id) {
         intersectionRepository.deleteById(id);
