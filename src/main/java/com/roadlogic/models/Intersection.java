@@ -12,9 +12,10 @@ public class Intersection {
     private String name;
     private String type;
     private String trafficLight;
-    private double coordinatesX;
-    private double coordinatesY;
-    private int maxVehicles;
+
+    private Double latitude;
+    private Double longitude;
+    private Integer trafficFlow;
 
     @ManyToOne
     @JoinColumn(name = "street_id")
@@ -24,34 +25,32 @@ public class Intersection {
     private List<Vehicle> vehicles;
 
     // Construtor sem argumentos
-    public Intersection() {
-    }
+    public Intersection() {}
 
-    // Construtor com argumentos
-    public Intersection(Long id, String name, String type, String trafficLight, double coordinatesX,
-                        double coordinatesY, int maxVehicles, Street street, List<Vehicle> vehicles) {
+    // Construtor completo
+    public Intersection(Long id, String name, String type, String trafficLight, Double latitude, Double longitude,
+                        Integer trafficFlow, Street street, List<Vehicle> vehicles) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.trafficLight = trafficLight;
-        this.coordinatesX = coordinatesX;
-        this.coordinatesY = coordinatesY;
-        this.maxVehicles = maxVehicles;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.trafficFlow = trafficFlow;
         this.street = street;
         this.vehicles = vehicles;
     }
 
     // Construtor simplificado para testes
-    public Intersection(Long id, String name, String type, String trafficLight, double coordinatesX, double coordinatesY, int maxVehicles) {
-    this.id = id;
-    this.name = name;
-    this.type = type;
-    this.trafficLight = trafficLight;
-    this.coordinatesX = coordinatesX;
-    this.coordinatesY = coordinatesY;
-    this.maxVehicles = maxVehicles;
+    public Intersection(Long id, String name, String type, String trafficLight, Double latitude, Double longitude, Integer trafficFlow) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.trafficLight = trafficLight;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.trafficFlow = trafficFlow;
     }
-
 
     // Getters e Setters
     public Long getId() {
@@ -86,28 +85,28 @@ public class Intersection {
         this.trafficLight = trafficLight;
     }
 
-    public double getCoordinatesX() {
-        return coordinatesX;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setCoordinatesX(double coordinatesX) {
-        this.coordinatesX = coordinatesX;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public double getCoordinatesY() {
-        return coordinatesY;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setCoordinatesY(double coordinatesY) {
-        this.coordinatesY = coordinatesY;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
-    public int getMaxVehicles() {
-        return maxVehicles;
+    public Integer getTrafficFlow() {
+        return trafficFlow;
     }
 
-    public void setMaxVehicles(int maxVehicles) {
-        this.maxVehicles = maxVehicles;
+    public void setTrafficFlow(Integer trafficFlow) {
+        this.trafficFlow = trafficFlow;
     }
 
     public Street getStreet() {
